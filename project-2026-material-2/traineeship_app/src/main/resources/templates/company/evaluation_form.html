@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <title>Evaluate Traineeship</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Evaluate Traineeship</h3>
+    <hr>
+
+    <p>
+        <b>Student:</b>
+        <span th:text="${position.student != null ? position.student.username : '-'}"></span><br>
+        <b>Position:</b>
+        <span th:text="${position.title}"></span>
+    </p>
+
+    <form th:action="@{/company/save_evaluation(positionId=${position.id})}"
+          th:object="${evaluation}" method="post">
+
+        <div class="form-group">
+            <label>Motivation (1–5)</label>
+            <input type="number"
+                   th:field="*{motivation}"
+                   min="1" max="5"
+                   class="form-control col-2"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Effectiveness (1–5)</label>
+            <input type="number"
+                   th:field="*{effectiveness}"
+                   min="1" max="5"
+                   class="form-control col-2"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Efficiency (1–5)</label>
+            <input type="number"
+                   th:field="*{efficiency}"
+                   min="1" max="5"
+                   class="form-control col-2"
+                   required>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Submit Evaluation
+        </button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/company/dashboard}">Back to Company Dashboard</a>
+
+</div>
+
+</body>
+</html>

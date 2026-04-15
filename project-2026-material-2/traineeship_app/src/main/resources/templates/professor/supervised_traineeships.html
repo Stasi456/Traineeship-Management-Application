@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <title>Supervised Traineeships</title>
+</head>
+
+<body>
+<div class="container">
+
+    <h3>Supervised Traineeships</h3>
+    <hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Position ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Student</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="position : ${positions}">
+            <td th:text="${position.id}"></td>
+            <td th:text="${position.title}"></td>
+            <td th:text="${position.description}"></td>
+            <td th:text="${position.student != null ? position.student.username : '-'}"></td>
+            <td th:text="${position.fromDate}"></td>
+            <td th:text="${position.toDate}"></td>
+            <td>
+                <a th:href="@{/professor/evaluate(positionId=${position.id})}"
+                   class="btn btn-warning btn-sm">
+                    Evaluate
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/professor/dashboard}">Back to Professor Dashboard</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <title>Professor Evaluation</title>
+</head>
+
+<body>
+<div class="container">
+
+    <h3>Professor Evaluation</h3>
+    <hr>
+
+    <p>
+        <b>Student:</b>
+        <span th:text="${position.student != null ? position.student.username : '-'}"></span><br>
+        <b>Company:</b>
+        <span th:text="${position.company != null ? position.company.companyName : '-'}"></span><br>
+        <b>Position:</b>
+        <span th:text="${position.title}"></span>
+    </p>
+
+    <form th:action="@{/professor/save_evaluation(positionId=${position.id})}" method="post">
+
+        <h5>Student Evaluation</h5>
+
+        <div class="form-group">
+            <label>Motivation (1–5)</label>
+            <input type="number" name="motivation" min="1" max="5" class="form-control col-2" required>
+        </div>
+
+        <div class="form-group">
+            <label>Effectiveness (1–5)</label>
+            <input type="number" name="effectiveness" min="1" max="5" class="form-control col-2" required>
+        </div>
+
+        <div class="form-group">
+            <label>Efficiency (1–5)</label>
+            <input type="number" name="efficiency" min="1" max="5" class="form-control col-2" required>
+        </div>
+
+        <hr>
+        <h5>Company Evaluation</h5>
+
+        <div class="form-group">
+            <label>Facilities (1–5)</label>
+            <input type="number" name="facilities" min="1" max="5" class="form-control col-2" required>
+        </div>
+
+        <div class="form-group">
+            <label>Guidance (1–5)</label>
+            <input type="number" name="guidance" min="1" max="5" class="form-control col-2" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit Evaluation</button>
+    </form>
+
+    <hr>
+    <a th:href="@{/professor/list_traineeships}">Back to Supervised Traineeships</a>
+
+</div>
+</body>
+</html>

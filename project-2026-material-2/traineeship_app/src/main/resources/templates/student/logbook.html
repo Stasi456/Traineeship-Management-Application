@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
+
+    <title>Student Logbook</title>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <h4 class="mb-4">Traineeship Logbook</h4>
+
+    <!-- No assigned traineeship -->
+    <div th:if="${position == null}" class="alert alert-warning">
+        You don’t have an assigned traineeship yet, so you can’t fill in the logbook.
+    </div>
+
+    <!-- Assigned traineeship -->
+    <div th:if="${position != null}">
+
+        <!-- Traineeship info -->
+        <div class="alert alert-light border mb-4">
+            <p><b>Position ID:</b> <span th:text="${position.id}"></span></p>
+            <p><b>Description:</b> <span th:text="${position.description}"></span></p>
+            <p><b>Topics:</b> <span th:text="${position.topics}"></span></p>
+            <p><b>Skills:</b> <span th:text="${position.skills}"></span></p>
+        </div>
+
+        <!-- Logbook form -->
+        <div class="card mb-4">
+            <div class="card-body">
+
+                <h5 class="mb-3">New Logbook Entry</h5>
+
+                <form th:action="@{/student/logbook/save}" method="post">
+
+                    <!-- CSRF token -->
+                    <input type="hidden"
+                           th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date"
+                               name="entryDate"
+                               class="form-control col-4"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What did you do today?</label>
+                        <textarea name="description"
+                                  class="form-control"
+                                  rows="5"
+                                  required
+                                  placeholder="Describe tasks, meetings, progress, issues..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hours (optional)</label>
+                        <input type="number"
+                               name="hours"
+                               min="0"
+                               step="0.5"
+                               class="form-control col-2">
+                    </div>
+
+                    <button type="submit" class="btn btn-info">
+                        Save Entry
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div class="alert alert-secondary">
+            Saved entries will be shown here in a future extension.
+        </div>
+
+    </div>
+
+    <hr>
+    <a th:href="@{/student/dashboard}">Back to Student Dashboard</a>
+
+</div>
+
+</body>
+</html>
